@@ -90,19 +90,54 @@
 
 .social-icons {
     display: flex;
-    gap: 1rem;
+    gap: 1.5rem;
 }
 
-.social-icons span {
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-    opacity: 0.7;
+.social-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
 }
 
-.social-icons span:hover {
+.social-icons a svg {
+    width: 20px;
+    height: 20px;
+    transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
     transform: translateY(-3px);
-    opacity: 1;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Brand Colors on Hover */
+.social-icons a[aria-label="GitHub"]:hover {
+    border-color: #6e5494;
+    box-shadow: 0 0 15px rgba(110, 84, 148, 0.4);
+    color: #fff;
+}
+
+.social-icons a[aria-label="LinkedIn"]:hover {
+    border-color: #0077b5;
+    box-shadow: 0 0 15px rgba(0, 119, 181, 0.4);
+    color: #0077b5;
+}
+
+.social-icons a[aria-label="Instagram"]:hover {
+    border-color: #e1306c;
+    box-shadow: 0 0 15px rgba(225, 48, 108, 0.4);
+    color: #e1306c;
 }
 
 @media (max-width: 768px) {
