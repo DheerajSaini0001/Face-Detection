@@ -27,7 +27,7 @@ const Footer = () => {
                             <h4>Developer</h4>
                             <span className="developer-info">Dheeraj Saini</span>
                             <a href="mailto:dheerajsaini131652@gmail.com">dheerajsaini131652@gmail.com</a>
-                            <span className="developer-info">+91 6375131652</span>
+                            <span className="developer-info">+91 63751 31652</span>
                         </div>
                         <div className="footer-column">
                             <h4>Legal</h4>
