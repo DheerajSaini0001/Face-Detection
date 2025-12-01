@@ -26,9 +26,9 @@ const ContactPage = () => {
         setStatus({ type: '', message: '' });
 
         // EmailJS Credentials
-        const SERVICE_ID = 'service_31sk105';
-        const TEMPLATE_ID = 'template_avhsmch';
-        const PUBLIC_KEY = 'ZAVoNKdGhM48XX37z';
+        const SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID;
+        const TEMPLATE_ID = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
+        const PUBLIC_KEY = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
 
         emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form.current, PUBLIC_KEY)
             .then((result) => {
