@@ -1,7 +1,12 @@
-// src/App.js
 import React, { useEffect, useRef, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import * as faceapi from 'face-api.js';
-import FaceRecognition from './components/FaceRecognition';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import Home from './pages/Home';
+import FeaturesPage from './pages/FeaturesPage';
+import PricingPage from './pages/PricingPage';
+import AboutPage from './pages/AboutPage';
 import './App.css';
 
 function App() {
@@ -37,20 +42,31 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <h1>Face Recognition App</h1>
-      {modelsLoaded ? (
-        <FaceRecognition
-          videoRef={videoRef}
-          handleVideoOnPlay={handleVideoOnPlay}
-          detections={detections}
-        />
-      ) : (
-        <p>Loading models...</p>
-      )}
-    </div>
+    <Router>
+      <div className="App">
+        <Navbar />
+        <main className="main-content">
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Home
+                  modelsLoaded={modelsLoaded}
+                  videoRef={videoRef}
+                  handleVideoOnPlay={handleVideoOnPlay}
+                  detections={detections}
+                />
+              }
+            />
+            <Route path="/features" element={<FeaturesPage />} />
+            <Route path="/pricing" element={<PricingPage />} />
+            <Route path="/about" element={<AboutPage />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
 export default App;
- 

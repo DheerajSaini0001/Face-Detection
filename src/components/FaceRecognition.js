@@ -4,13 +4,19 @@ import './FaceRecognition.css';
 
 const FaceRecognition = ({ videoRef, handleVideoOnPlay, detections }) => {
   const [capturedImages, setCapturedImages] = useState([]);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [showToast, setShowToast] = useState(false);
+  const wrapperRef = useRef(null);
+  const canvasRef = useRef(null);
 
   useEffect(() => {
     const startVideo = () => {
       navigator.mediaDevices
         .getUserMedia({ video: {} })
         .then((stream) => {
-          videoRef.current.srcObject = stream;
+          if (videoRef.current) {
+            videoRef.current.srcObject = stream;
+          }
         })
         .catch((err) => console.error(err));
     };
@@ -19,12 +25,21 @@ const FaceRecognition = ({ videoRef, handleVideoOnPlay, detections }) => {
   }, [videoRef]);
 
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.addEventListener('play', () => {
-        const canvas = faceapi.createCanvasFromMedia(videoRef.current);
+    const videoEl = videoRef.current;
+    if (videoEl && wrapperRef.current) {
+      const handlePlay = () => {
+        if (canvasRef.current) {
+          canvasRef.current.remove();
+        }
+
+        const canvas = faceapi.createCanvasFromMedia(videoEl);
+        canvasRef.current = canvas;
+        canvas.className = 'canvas-element';
+        wrapperRef.current.append(canvas);
+
         const displaySize = {
-          width: videoRef.current.width,
-          height: videoRef.current.height,
+          width: videoEl.width,
+          height: videoEl.height,
         };
         faceapi.matchDimensions(canvas, displaySize);
 
@@ -40,7 +55,16 @@ const FaceRecognition = ({ videoRef, handleVideoOnPlay, detections }) => {
         if (detections.length > 0) {
           drawDetections();
         }
-      });
+      };
+
+      videoEl.addEventListener('play', handlePlay);
+
+      // Cleanup
+      return () => {
+        if (videoEl) {
+          videoEl.removeEventListener('play', handlePlay);
+        }
+      };
     }
   }, [detections, videoRef]);
 
@@ -67,7 +91,11 @@ const FaceRecognition = ({ videoRef, handleVideoOnPlay, detections }) => {
       }
 
       const dataUrl = canvas.toDataURL('image/jpeg');
-      setCapturedImages([...capturedImages, dataUrl]);
+      setCapturedImages((prev) => [...prev, dataUrl]);
+
+      // Show toast
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 3000);
 
       const byteString = atob(dataUrl.split(',')[1]);
       const mimeString = dataUrl.split(',')[0].split(':')[1].split(';')[0];
@@ -100,30 +128,75 @@ const FaceRecognition = ({ videoRef, handleVideoOnPlay, detections }) => {
     }
   };
 
+  const downloadImage = (dataUrl) => {
+    const link = document.createElement('a');
+    link.href = dataUrl;
+    link.download = `capture-${Date.now()}.jpg`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="face-recognition-container">
-      <video
-        ref={videoRef}
-        autoPlay
-        muted
-        onPlay={handleVideoOnPlay}
-        width="720"
-        height="560"
-        className="video-stream"
-      />
-      <button onClick={captureImage} className="capture-button">
-        Capture Image
-      </button>
-      <div className="captured-images-container">
-        {capturedImages.map((image, index) => (
-          <img
-            key={index}
-            src={image}
-            alt={`Captured ${index}`}
-            className="captured-image"
+      <div className="camera-section">
+        <div className="video-wrapper" ref={wrapperRef}>
+          <video
+            ref={videoRef}
+            autoPlay
+            muted
+            onPlay={handleVideoOnPlay}
+            width="720"
+            height="560"
+            className="video-stream"
           />
-        ))}
+          {showToast && (
+            <div className="toast-notification">
+              <span>✨</span> Image Captured!
+            </div>
+          )}
+        </div>
+
+        <div className="controls-wrapper">
+          <button onClick={captureImage} className="capture-button">
+            <span>📸</span> Capture Image
+          </button>
+        </div>
       </div>
+
+      {capturedImages.length > 0 && (
+        <div className="gallery-section">
+          <h2 className="gallery-title">Captured Moments <span>({capturedImages.length})</span></h2>
+          <div className="captured-images-container">
+            {capturedImages.map((image, index) => (
+              <div key={index} className="image-card" onClick={() => setSelectedImage(image)}>
+                <img
+                  src={image}
+                  alt={`Captured ${index}`}
+                  className="captured-image"
+                />
+                <div className="image-overlay">
+                  <span>🔍 View</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {selectedImage && (
+        <div className="modal-overlay" onClick={() => setSelectedImage(null)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="close-button" onClick={() => setSelectedImage(null)}>×</button>
+            <img src={selectedImage} alt="Selected" className="modal-image" />
+            <div className="modal-actions">
+              <button className="modal-action-btn download" onClick={() => downloadImage(selectedImage)}>
+                ⬇ Download
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
