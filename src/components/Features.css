@@ -1,6 +1,5 @@
 .features-section {
-    padding: 0;
-    /* Remove padding as it's now in a container */
+    padding: 4rem 2rem;
     background: transparent;
     position: relative;
     overflow: hidden;
@@ -10,17 +9,31 @@
 .features-section::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at 20% 20%, rgba(56, 189, 248, 0.05) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(14, 165, 233, 0.05) 0%, transparent 50%);
+    top: -20%;
+    left: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, transparent 70%);
+    filter: blur(80px);
     pointer-events: none;
+    z-index: 0;
+}
+
+.features-section::after {
+    content: '';
+    position: absolute;
+    bottom: -20%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(14, 165, 233, 0.15) 0%, transparent 70%);
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
 }
 
 .features-container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     position: relative;
     z-index: 1;
@@ -28,98 +41,200 @@
 
 .features-header {
     text-align: center;
-    margin-bottom: 4rem;
-    padding: 0;
-    background: transparent;
-    border: none;
+    margin-bottom: 5rem;
+    position: relative;
 }
 
 .features-header h2 {
-    font-size: 2.5rem;
+    font-size: 3.5rem;
     font-weight: 800;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     background: linear-gradient(135deg, #fff 0%, #94a3b8 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    letter-spacing: -0.02em;
+    text-shadow: 0 0 40px rgba(255, 255, 255, 0.1);
 }
 
 .features-header p {
     color: var(--text-secondary);
-    font-size: 1.2rem;
-    max-width: 100%;
-    margin: 0;
+    font-size: 1.3rem;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
 }
 
 .features-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    /* Single column stack */
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2.5rem;
+    padding: 1rem;
 }
 
 .feature-card {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: rgba(30, 41, 59, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 24px;
-    padding: 2rem;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 2.5rem;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    animation: fadeInUp 0.6s ease-out backwards;
+}
+
+/* Staggered animation delays */
+.feature-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.feature-card:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+.feature-card:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.feature-card:nth-child(4) {
+    animation-delay: 0.25s;
+}
+
+.feature-card:nth-child(5) {
+    animation-delay: 0.3s;
+}
+
+.feature-card:nth-child(6) {
+    animation-delay: 0.35s;
+}
+
+.feature-card:nth-child(7) {
+    animation-delay: 0.4s;
+}
+
+.feature-card:nth-child(8) {
+    animation-delay: 0.45s;
+}
+
+.feature-card:nth-child(9) {
+    animation-delay: 0.5s;
+}
+
+.feature-card:nth-child(10) {
+    animation-delay: 0.55s;
+}
+
+.feature-card:nth-child(11) {
+    animation-delay: 0.6s;
+}
+
+.feature-card:nth-child(12) {
+    animation-delay: 0.65s;
+}
+
+.feature-card:nth-child(13) {
+    animation-delay: 0.7s;
+}
+
+.feature-card:nth-child(14) {
+    animation-delay: 0.75s;
+}
+
+.feature-card:nth-child(15) {
+    animation-delay: 0.8s;
 }
 
 .feature-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--accent-color);
-    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3);
+    transform: translateY(-8px);
+    background: rgba(30, 41, 59, 0.6);
+    border-color: rgba(56, 189, 248, 0.3);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.4),
+        0 0 20px rgba(56, 189, 248, 0.1);
 }
 
-.feature-card::after {
+.feature-card::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 100%);
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent-color), transparent);
     opacity: 0;
     transition: opacity 0.3s ease;
 }
 
-.feature-card:hover::after {
+.feature-card:hover::before {
     opacity: 1;
 }
 
 .feature-icon {
-    font-size: 3rem;
+    font-size: 2.5rem;
     margin-bottom: 1.5rem;
-    filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.3));
+    width: 70px;
+    height: 70px;
+    background: rgba(56, 189, 248, 0.1);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(56, 189, 248, 0.2);
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover .feature-icon {
+    background: var(--accent-color);
+    color: #0f172a;
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 0 20px var(--accent-glow);
 }
 
 .feature-card h3 {
-    font-size: 1.25rem;
+    font-size: 1.4rem;
     font-weight: 700;
     color: var(--text-primary);
     margin-bottom: 1rem;
-    line-height: 1.4;
+    line-height: 1.3;
 }
 
 .feature-card p {
     color: var(--text-secondary);
-    font-size: 1rem;
-    line-height: 1.6;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin: 0;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @media (max-width: 768px) {
     .features-section {
-        padding: 4rem 1rem;
+        padding: 3rem 1rem;
     }
 
     .features-header h2 {
-        font-size: 2rem;
+        font-size: 2.5rem;
     }
 
     .features-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .feature-card {
+        padding: 2rem;
     }
 }

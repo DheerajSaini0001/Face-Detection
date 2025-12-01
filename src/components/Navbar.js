@@ -18,9 +18,9 @@ const Navbar = () => {
                     <li><Link to="/pricing" className={`nav-link ${location.pathname === '/pricing' ? 'active' : ''}`}>Pricing</Link></li>
                     <li><Link to="/about" className={`nav-link ${location.pathname === '/about' ? 'active' : ''}`}>About</Link></li>
                 </ul>
-                <div className="navbar-actions">
+                {/* <div className="navbar-actions">
                     <button className="nav-btn">Get Started</button>
-                </div>
+                </div> */}
             </div>
         </nav>
     );
