@@ -20,7 +20,6 @@ const Footer = () => {
                         <div className="footer-column">
                             <h4>Company</h4>
                             <a href="/about">About Us</a>
-                            <a href="#careers">Careers</a>
                             <a href="/contact">Contact</a>
                         </div>
                         <div className="footer-column">
