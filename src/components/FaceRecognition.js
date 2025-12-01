@@ -109,7 +109,7 @@ const FaceRecognition = ({ videoRef, handleVideoOnPlay, detections }) => {
       const formData = new FormData();
       formData.append('image', blob, 'capture.jpg');
 
-      fetch('http://localhost:5000/upload', {
+      fetch('/upload', {
         method: 'POST',
         body: formData,
       })
