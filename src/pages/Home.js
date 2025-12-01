@@ -5,7 +5,7 @@ const Home = ({ modelsLoaded, videoRef, handleVideoOnPlay, detections }) => {
     return (
         <div className="home-page">
             <section className="hero-section">
-                <h1>Face Recognition App</h1>
+                <h1>Face Expressions Detection</h1>
                 <p>Experience the power of AI-driven face detection in real-time.</p>
             </section>
 

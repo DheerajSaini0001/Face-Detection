@@ -2,7 +2,6 @@
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 2rem;
     color: var(--text-primary);
 }
 
@@ -243,11 +242,79 @@
 }
 
 @media (max-width: 768px) {
+    .pricing-page {
+        
+        overflow-x: hidden;
+    }
+
+    .pricing-hero {
+        padding: 2rem 1rem;
+        margin-bottom: 2rem;
+    }
+
     .pricing-hero h1 {
-        font-size: 2.5rem;
+        font-size: 2rem;
+        word-wrap: break-word;
+        line-height: 1.2;
+    }
+
+    .hero-subtitle {
+        font-size: 1.2rem;
+        margin-top: 0.5rem;
+    }
+
+    .hero-description {
+        font-size: 1rem;
+    }
+
+    .steps-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .step-card {
+        padding: 1.5rem;
     }
 
     .benefits-container {
         flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .benefits-column {
+        min-width: 0;
+        width: 100%;
+        padding: 1.5rem;
+        box-sizing: border-box;
+    }
+
+    .pricing-card-section h2 {
+        font-size: 1.8rem;
+    }
+
+    .pricing-card {
+        border-radius: 20px;
+        width: 100%;
+        box-sizing: border-box;
+        margin: 0;
+    }
+
+    .pricing-header {
+        padding: 1.5rem;
+    }
+
+    .pricing-header h3 {
+        font-size: 2rem;
+    }
+
+    .pricing-body,
+    .pricing-footer {
+        padding: 1.5rem;
+    }
+
+    .cta-button {
+        width: 100%;
+        padding: 1rem;
+        box-sizing: border-box;
     }
 }
