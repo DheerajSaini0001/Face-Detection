@@ -6,6 +6,7 @@ const FaceRecognition = ({ videoRef, handleVideoOnPlay, detections }) => {
   const [capturedImages, setCapturedImages] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
   const [showToast, setShowToast] = useState(false);
+  const [uploadStatus, setUploadStatus] = useState('idle'); // idle, uploading, success, error
   const wrapperRef = useRef(null);
   const canvasRef = useRef(null);
 
@@ -109,7 +110,9 @@ const FaceRecognition = ({ videoRef, handleVideoOnPlay, detections }) => {
       const formData = new FormData();
       formData.append('image', blob, 'capture.jpg');
 
-      fetch('/upload', {
+      setUploadStatus('uploading');
+
+      fetch('http://localhost:5001/upload', {
         method: 'POST',
         body: formData,
       })
@@ -121,9 +124,13 @@ const FaceRecognition = ({ videoRef, handleVideoOnPlay, detections }) => {
         })
         .then((data) => {
           console.log('Image saved successfully', data);
+          setUploadStatus('success');
+          setTimeout(() => setUploadStatus('idle'), 3000);
         })
         .catch((error) => {
           console.error('Error saving image:', error);
+          setUploadStatus('error');
+          setTimeout(() => setUploadStatus('idle'), 5000);
         });
     }
   };
@@ -158,8 +165,8 @@ const FaceRecognition = ({ videoRef, handleVideoOnPlay, detections }) => {
         </div>
 
         <div className="controls-wrapper">
-          <button onClick={captureImage} className="capture-button">
-            <span>📸</span> Capture Image
+          <button onClick={captureImage} className="capture-button" disabled={uploadStatus === 'uploading'}>
+            <span>📸</span> {uploadStatus === 'uploading' ? 'Uploading...' : 'Capture Image'}
           </button>
         </div>
       </div>

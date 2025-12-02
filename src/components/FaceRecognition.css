@@ -349,3 +349,51 @@
     right: 10px;
   }
 }
+
+/* Upload Status Styles */
+.upload-status {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 20;
+  backdrop-filter: blur(4px);
+  animation: slideDown 0.3s ease-out;
+}
+
+.upload-status.uploading {
+  background: rgba(59, 130, 246, 0.9);
+  /* Blue */
+  color: white;
+}
+
+.upload-status.success {
+  background: rgba(16, 185, 129, 0.9);
+  /* Green */
+  color: white;
+}
+
+.upload-status.error {
+  background: rgba(239, 68, 68, 0.9);
+  /* Red */
+  color: white;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translate(-50%, -20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+}
