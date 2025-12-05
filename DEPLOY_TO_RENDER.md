@@ -21,12 +21,12 @@ Fill in the details as follows:
 *   **Name**: Choose a name (e.g., `face-detection-app`).
 *   **Region**: Select the one closest to you (e.g., Singapore or Frankfurt).
 *   **Branch**: `main` (or your default branch).
-*   **Root Directory**: Leave empty (since your `package.json` is in the root).
+*   **Root Directory**: Leave empty.
 *   **Runtime**: **Node**
 *   **Build Command**: `npm install && npm run build`
-    *   *This installs dependencies and builds the React frontend.*
-*   **Start Command**: `node server.js`
-    *   *This starts the Express server which serves both the API and the React app.*
+    *   *This installs dependencies for both folders and builds the React frontend.*
+*   **Start Command**: `npm start`
+    *   *This starts the Express server from the backend folder.*
 
 ## Step 3: Environment Variables
 
